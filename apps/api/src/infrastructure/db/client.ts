@@ -9,6 +9,11 @@ const connectionString =
 const queryClient = postgres(connectionString)
 export const db = drizzle(queryClient, { schema, logger: process.env.NODE_ENV !== 'production' })
 
+// Graceful shutdown — close the pool when the process exits
+const shutdown = () => queryClient.end()
+process.on('SIGTERM', shutdown)
+process.on('SIGINT', shutdown)
+
 // For migrations only (single connection, no pooling)
 export function createMigrationClient() {
   return postgres(connectionString, { max: 1 })
