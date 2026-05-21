@@ -16,20 +16,21 @@ export async function getFolderChildren(
   const hasMore = children.length > limit
   const page = hasMore ? children.slice(0, limit) : children
 
-  // Count children for hasChildren/childCount on each returned node
-  const nodes: FolderNode[] = await Promise.all(
-    page.map(async (f) => {
-      const count = await repo.countChildren(f.id as FolderId)
-      return {
-        id: Number(f.id),
-        parentId: f.parentId ? Number(f.parentId) : null,
-        name: f.name,
-        depth: f.depth,
-        hasChildren: count > 0,
-        childCount: count,
-      }
-    }),
-  )
+  // Count children for hasChildren/childCount on each returned node (batched)
+  const childIds = page.map((f) => f.id as FolderId)
+  const countMap = await repo.countChildrenBatch(childIds)
+
+  const nodes: FolderNode[] = page.map((f) => {
+    const count = countMap.get(String(f.id)) ?? 0
+    return {
+      id: Number(f.id),
+      parentId: f.parentId ? Number(f.parentId) : null,
+      name: f.name,
+      depth: f.depth,
+      hasChildren: count > 0,
+      childCount: count,
+    }
+  })
 
   return {
     data: nodes,

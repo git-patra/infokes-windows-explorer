@@ -2,12 +2,7 @@ import type { FileRepository } from '../domain/file/file-repository'
 import type { FolderRepository } from '../domain/folder/folder-repository'
 import { FolderNotFoundError } from '../domain/errors'
 import { type FolderId } from '../domain/folder/folder-id'
-import type { FileItem } from '@windows-explorer/contracts'
-
-export interface FileListResponse {
-  data: FileItem[]
-  meta: { total: number; cursor: bigint | null }
-}
+import type { FileListResponse } from '@windows-explorer/contracts'
 
 export async function listFolderFiles(
   folderRepo: FolderRepository,
@@ -34,7 +29,7 @@ export async function listFolderFiles(
     })),
     meta: {
       total: page.length,
-      cursor: hasMore ? page[page.length - 1].id : null,
+      cursor: hasMore ? Number(page[page.length - 1].id) : null,
     },
   }
 }

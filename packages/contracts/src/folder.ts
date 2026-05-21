@@ -36,3 +36,12 @@ export interface SearchResult {
   folderId: number | null  // null when result is itself a folder
   parentId: number | null
 }
+
+export interface FolderDetail extends FolderNode {
+  breadcrumb: { id: number; name: string }[]
+}
+
+export interface FileListResponse {
+  data: FileItem[]
+  meta: { total: number; cursor: number | null }
+}

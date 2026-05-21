@@ -1,11 +1,7 @@
 import type { FolderRepository } from '../domain/folder/folder-repository'
 import { FolderNotFoundError } from '../domain/errors'
 import { type FolderId } from '../domain/folder/folder-id'
-import type { FolderNode } from '@windows-explorer/contracts'
-
-export interface FolderDetail extends FolderNode {
-  breadcrumb: { id: number; name: string }[]
-}
+import type { FolderDetail } from '@windows-explorer/contracts'
 
 export async function getFolderById(
   repo: FolderRepository,

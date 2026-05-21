@@ -45,6 +45,14 @@ export class FakeFolderRepository implements FolderRepository {
     return this.folders.filter((f) => f.parentId === parentId).length
   }
 
+  async countChildrenBatch(parentIds: FolderId[]): Promise<Map<string, number>> {
+    const result = new Map<string, number>()
+    for (const id of parentIds) {
+      result.set(String(id), this.folders.filter((f) => f.parentId === id).length)
+    }
+    return result
+  }
+
   async findSubtree(rootId: FolderId | null, options?: FolderTreeOptions): Promise<Folder[]> {
     const maxDepth = options?.maxDepth
 
