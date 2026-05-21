@@ -15,7 +15,7 @@ export function useSelection() {
     },
   })
 
-  function select(id: number): void {
+  function select(id: number | null): void {
     selectedId.value = id
   }
 

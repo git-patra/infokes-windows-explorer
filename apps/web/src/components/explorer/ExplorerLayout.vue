@@ -8,7 +8,7 @@ import Breadcrumb from './Breadcrumb.vue'
 const { selectedId, select } = useSelection()
 const { breadcrumb } = useFolderDetail(() => selectedId.value)
 
-function handleSelect(id: number) {
+function handleSelect(id: number | null) {
   select(id)
 }
 </script>

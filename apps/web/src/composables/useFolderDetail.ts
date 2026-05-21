@@ -10,9 +10,13 @@ export function useFolderDetail(folderId: () => number | null) {
     queryFn: () => api.getFolderById(folderId()!),
     enabled,
     staleTime: 60_000,
+    placeholderData: undefined,
   })
 
-  const breadcrumb = computed(() => data.value?.breadcrumb ?? [])
+  const breadcrumb = computed(() => {
+    if (isLoading.value || error.value) return []
+    return data.value?.breadcrumb ?? []
+  })
 
   return { breadcrumb, isLoading, error }
 }

@@ -6,7 +6,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  select: [id: number]
+  select: [id: number | null]
 }>()
 </script>
 
@@ -16,7 +16,7 @@ const emit = defineEmits<{
     <button
       class="flex items-center gap-1 text-[#89b4fa] hover:text-[#cdd6f4] transition-colors"
       :class="{ 'text-[#585b70] pointer-events-none': items.length === 0 }"
-      @click="items.length > 0 && emit('select', 0)"
+      @click="items.length > 0 && emit('select', null)"
     >
       <Home :size="14" />
       <span>Root</span>
