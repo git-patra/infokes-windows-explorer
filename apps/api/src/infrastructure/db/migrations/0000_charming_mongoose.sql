@@ -2,7 +2,7 @@ CREATE TABLE "files" (
 	"id" bigserial PRIMARY KEY NOT NULL,
 	"folder_id" bigint NOT NULL,
 	"name" text NOT NULL,
-	"size_bytes" bigint NOT NULL,
+	"size_bytes" bigint DEFAULT 0 NOT NULL,
 	"mime_type" text,
 	"created_at" timestamp with time zone DEFAULT now() NOT NULL,
 	CONSTRAINT "files_name_unique_per_folder" UNIQUE("folder_id","name")

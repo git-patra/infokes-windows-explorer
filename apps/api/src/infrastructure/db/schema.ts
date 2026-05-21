@@ -46,7 +46,7 @@ export const files = pgTable(
       .notNull()
       .references(() => folders.id, { onDelete: 'cascade' }),
     name: text('name').notNull(),
-    sizeBytes: bigint('size_bytes', { mode: 'bigint' }).notNull().$default(() => BigInt(0)),
+    sizeBytes: bigint('size_bytes', { mode: 'bigint' }).notNull().default(sql`0`),
     mimeType: text('mime_type'),
     createdAt: timestamp('created_at', { withTimezone: true }).notNull().defaultNow(),
   },
