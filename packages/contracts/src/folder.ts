@@ -1,4 +1,3 @@
-// Populated in Phase 4 — stubs only
 export interface FolderNode {
   id: number
   parentId: number | null
@@ -33,7 +32,7 @@ export interface SearchResult {
   name: string
   path: string
   type: 'folder' | 'file'
-  folderId: number | null  // null when result is itself a folder
+  folderId: number | null
   parentId: number | null
 }
 
@@ -44,4 +43,8 @@ export interface FolderDetail extends FolderNode {
 export interface FileListResponse {
   data: FileItem[]
   meta: { total: number; cursor: number | null }
+}
+
+export interface ApiError {
+  error: { code: string; message: string }
 }
