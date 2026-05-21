@@ -8,7 +8,7 @@
     "dev:api": "bun run --cwd apps/api dev",
     "dev:web": "bun run --cwd apps/web dev",
     "build": "bun run --cwd apps/api build && bun run --cwd apps/web build",
-    "test": "bun run --cwd apps/api test",
+    "test": "bun run --cwd apps/api test && bun run --cwd apps/web test",
     "test:unit": "bun run --cwd apps/api test:unit",
     "test:int": "bun run --cwd apps/api test:int",
     "lint": "eslint apps packages --max-warnings 0",
@@ -20,6 +20,8 @@
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
     "prettier": "^3.0.0",
-    "typescript": "^5.5.0"
+    "typescript": "^5.5.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "vue-eslint-parser": "^9.0.0"
   }
 }

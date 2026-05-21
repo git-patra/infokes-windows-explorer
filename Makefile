@@ -12,7 +12,8 @@ install: ## Install all dependencies
 up: ## Start Docker services (Postgres)
 	docker compose up -d
 	@echo "Waiting for Postgres to be ready..."
-	@until docker compose exec postgres pg_isready -U explorer -d explorer 2>/dev/null; do sleep 1; done
+	@n=0; until docker compose exec postgres pg_isready -U explorer -d explorer 2>/dev/null; do \
+	  n=$$((n+1)); [ $$n -ge 30 ] && { echo "Postgres failed to start after 30s"; exit 1; }; sleep 1; done
 	@echo "Postgres is ready"
 
 down: ## Stop Docker services
@@ -24,7 +25,7 @@ db-migrate: up ## Run database migrations
 seed: db-migrate ## Seed the database with demo data
 	bun run --cwd apps/api db:seed
 
-dev: install up db-migrate ## Start full dev stack (DB + API + Web)
+dev: up db-migrate ## Start full dev stack (DB + API + Web)
 	@echo "Starting development servers..."
 	bun run dev
 
@@ -46,7 +47,7 @@ test-unit: ## Run unit tests only
 test-int: up db-migrate ## Run integration tests (requires DB)
 	bun run test:int
 
-test-e2e: dev ## Run E2E tests (requires full stack)
+test-e2e: ## Run E2E tests (requires running stack: make dev in another terminal)
 	bun run --cwd apps/web test:e2e
 
 lint: ## Lint all packages

@@ -33,4 +33,6 @@ export interface SearchResult {
   name: string
   path: string
   type: 'folder' | 'file'
+  folderId: number | null  // null when result is itself a folder
+  parentId: number | null
 }

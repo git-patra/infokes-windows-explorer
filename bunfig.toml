@@ -1,5 +1,5 @@
 [install]
-# Use exact versions for reproducible installs
+# Use semver ranges (bun.lock provides reproducibility)
 exact = false
 
 [install.cache]

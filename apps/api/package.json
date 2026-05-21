@@ -9,7 +9,11 @@
     "test": "bun test",
     "test:unit": "bun test tests/unit",
     "test:int": "bun test tests/integration",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "db:generate": "drizzle-kit generate",
+    "db:migrate": "drizzle-kit migrate",
+    "db:seed": "bun run src/infrastructure/db/seed.ts",
+    "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
     "elysia": "^1.2.0",
