@@ -1,7 +1,7 @@
 .DEFAULT_GOAL := help
 SHELL := /bin/bash
 
-.PHONY: help install up down dev dev-api dev-web build test test-unit test-int test-e2e lint typecheck seed clean
+.PHONY: help install up down dev dev-api dev-web build test test-unit test-int test-e2e lint typecheck seed clean prod prod-migrate
 
 help: ## Show this help
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-20s\033[0m %s\n", $$1, $$2}'
@@ -55,6 +55,13 @@ lint: ## Lint all packages
 
 typecheck: ## Type-check all packages
 	bun run typecheck
+
+prod: ## Build and start full stack via Docker (production mode, web on :8080)
+	docker compose build
+	docker compose up
+
+prod-migrate: ## Run DB migrations inside the running production API container
+	docker compose exec api bun run db:migrate
 
 clean: ## Remove build artifacts and dependencies
 	rm -rf node_modules apps/*/node_modules packages/*/node_modules
