@@ -1,0 +1,10 @@
+[install]
+# Use exact versions for reproducible installs
+exact = false
+
+[install.cache]
+# Cache directory (bun default)
+
+[test]
+# Coverage configuration
+coverage = false

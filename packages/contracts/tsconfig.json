@@ -1,0 +1,4 @@
+{
+  "extends": "@windows-explorer/tsconfig/base.json",
+  "include": ["src"]
+}

@@ -1,0 +1,27 @@
+{
+  "name": "@windows-explorer/api",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --watch src/main.ts",
+    "build": "bun build src/main.ts --outdir dist --target bun",
+    "test": "bun test",
+    "test:unit": "bun test tests/unit",
+    "test:int": "bun test tests/integration",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "elysia": "^1.2.0",
+    "@elysiajs/cors": "^1.2.0",
+    "@elysiajs/swagger": "^1.2.0",
+    "drizzle-orm": "^0.38.0",
+    "postgres": "^3.4.0",
+    "@windows-explorer/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@windows-explorer/tsconfig": "workspace:*",
+    "drizzle-kit": "^0.30.0",
+    "bun-types": "latest"
+  }
+}

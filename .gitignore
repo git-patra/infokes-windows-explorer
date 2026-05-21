@@ -1,0 +1,31 @@
+# Dependencies
+node_modules/
+bun.lockb
+
+# Build
+dist/
+.output/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage/
+
+# Playwright
+playwright-report/
+test-results/
+
+# Worktrees
+.worktrees/
