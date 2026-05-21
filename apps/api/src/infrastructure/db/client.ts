@@ -7,7 +7,7 @@ const connectionString =
 
 // For use in application code (pooled)
 const queryClient = postgres(connectionString)
-export const db = drizzle(queryClient, { schema, logger: process.env.NODE_ENV !== 'production' })
+export const db = drizzle(queryClient, { schema, logger: process.env.NODE_ENV === 'development' })
 
 // Graceful shutdown — close the pool when the process exits
 const shutdown = () => queryClient.end()

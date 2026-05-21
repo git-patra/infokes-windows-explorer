@@ -8,7 +8,7 @@ import { FolderNotFoundError, InvalidQueryError } from './domain/errors'
 
 export function createApp() {
   return new Elysia()
-    .onError(({ error, set }) => {
+    .onError(({ error, code, set }) => {
       if (error instanceof FolderNotFoundError) {
         set.status = 404
         return { error: { code: error.code, message: error.message } }
@@ -17,10 +17,9 @@ export function createApp() {
         set.status = 400
         return { error: { code: error.code, message: error.message } }
       }
-      const msg = (error as { message?: string }).message
-      if (msg?.includes('Validation')) {
+      if (code === 'VALIDATION') {
         set.status = 422
-        return { error: { code: 'VALIDATION_ERROR', message: msg } }
+        return { error: { code: 'VALIDATION_ERROR', message: error.message } }
       }
       console.error('Unhandled error:', error)
       set.status = 500

@@ -27,11 +27,12 @@ export class PostgresFileRepository implements FileRepository {
       ? sql`${files.folderId} = ${folderId} AND ${files.id} > ${cursor}`
       : sql`${files.folderId} = ${folderId}`
 
+    // Sort by id for consistent cursor-based pagination; frontend sorts alphabetically for display
     const rows = await db
       .select()
       .from(files)
       .where(condition)
-      .orderBy(asc(files.name))
+      .orderBy(asc(files.id))
       .limit(limit)
 
     return rows.map(toFile)

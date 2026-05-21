@@ -7,13 +7,13 @@ export async function getFolderById(
   repo: FolderRepository,
   folderId: FolderId,
 ): Promise<FolderDetail> {
-  const [folder, ancestors, childCount] = await Promise.all([
-    repo.findById(folderId),
+  const folder = await repo.findById(folderId)
+  if (!folder) throw new FolderNotFoundError(folderId)
+
+  const [ancestors, childCount] = await Promise.all([
     repo.findAncestors(folderId),
     repo.countChildren(folderId),
   ])
-
-  if (!folder) throw new FolderNotFoundError(folderId)
 
   return {
     id: Number(folder.id),

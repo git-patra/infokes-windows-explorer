@@ -1,4 +1,4 @@
-import { and, asc, gt, isNull, lt, lte, sql } from 'drizzle-orm'
+import { and, asc, gt, inArray, isNull, lt, lte, sql } from 'drizzle-orm'
 import { db } from '../db/client'
 import { folders } from '../db/schema'
 import type { FolderRepository, FolderTreeOptions, FolderChildrenOptions } from '../../domain/folder/folder-repository'
@@ -37,11 +37,12 @@ export class PostgresFolderRepository implements FolderRepository {
       ? and(isNull(folders.parentId), gt(folders.id, cursor))
       : isNull(folders.parentId)
 
+    // Sort by id for consistent cursor-based pagination; frontend sorts alphabetically for display
     const rows = await db
       .select()
       .from(folders)
       .where(conditions)
-      .orderBy(asc(folders.name))
+      .orderBy(asc(folders.id))
       .limit(limit)
 
     return rows.map(toFolder)
@@ -59,7 +60,7 @@ export class PostgresFolderRepository implements FolderRepository {
       .select()
       .from(folders)
       .where(conditions)
-      .orderBy(asc(folders.name))
+      .orderBy(asc(folders.id))
       .limit(limit)
 
     return rows.map(toFolder)
@@ -79,12 +80,12 @@ export class PostgresFolderRepository implements FolderRepository {
     const rows = await db
       .select({ parentId: folders.parentId, count: sql<number>`count(*)::int` })
       .from(folders)
-      .where(sql`${folders.parentId} = ANY(${parentIds}::bigint[])`)
+      .where(inArray(folders.parentId, parentIds as bigint[]))
       .groupBy(folders.parentId)
 
     const result = new Map<string, number>()
     for (const row of rows) {
-      if (row.parentId) result.set(String(row.parentId), row.count)
+      if (row.parentId != null) result.set(String(row.parentId), row.count)
     }
     return result
   }
