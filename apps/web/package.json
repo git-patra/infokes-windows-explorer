@@ -21,15 +21,16 @@
     "@windows-explorer/contracts": "workspace:*"
   },
   "devDependencies": {
-    "@windows-explorer/tsconfig": "workspace:*",
-    "@vitejs/plugin-vue": "^5.0.0",
-    "vite": "^6.0.0",
-    "vue-tsc": "^2.0.0",
-    "vitest": "^3.0.0",
-    "@vue/test-utils": "^2.4.0",
     "@playwright/test": "^1.49.0",
-    "tailwindcss": "^4.0.0",
     "@tailwindcss/vite": "^4.0.0",
-    "bun-types": "latest"
+    "@vitejs/plugin-vue": "^5.0.0",
+    "@vue/test-utils": "^2.4.0",
+    "@windows-explorer/tsconfig": "workspace:*",
+    "bun-types": "latest",
+    "happy-dom": "^20.9.0",
+    "tailwindcss": "^4.0.0",
+    "vite": "^6.0.0",
+    "vitest": "^3.0.0",
+    "vue-tsc": "^2.0.0"
   }
 }

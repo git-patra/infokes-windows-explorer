@@ -1,8 +1,27 @@
-import { ref } from 'vue'
-// Full implementation in Phase 7
+import { computed } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+
 export function useSelection() {
-  const selectedId = ref<number | null>(null)
-  function select(id: number) { selectedId.value = id }
-  function clear() { selectedId.value = null }
+  const router = useRouter()
+  const route = useRoute()
+
+  const selectedId = computed({
+    get: () => {
+      const id = route.query.folderId
+      return id ? Number(id) : null
+    },
+    set: (id: number | null) => {
+      router.replace({ query: id !== null ? { folderId: String(id) } : {} })
+    },
+  })
+
+  function select(id: number): void {
+    selectedId.value = id
+  }
+
+  function clear(): void {
+    selectedId.value = null
+  }
+
   return { selectedId, select, clear }
 }
