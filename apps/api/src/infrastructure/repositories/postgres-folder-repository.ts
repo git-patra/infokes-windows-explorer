@@ -1,4 +1,4 @@
-import { and, asc, gt, isNull, lt, sql } from 'drizzle-orm'
+import { and, asc, gt, isNull, lt, lte, sql } from 'drizzle-orm'
 import { db } from '../db/client'
 import { folders } from '../db/schema'
 import type { FolderRepository, FolderTreeOptions, FolderChildrenOptions } from '../../domain/folder/folder-repository'
@@ -98,7 +98,7 @@ export class PostgresFolderRepository implements FolderRepository {
         const rows = await db
           .select()
           .from(folders)
-          .where(lt(folders.depth, maxD))
+          .where(lte(folders.depth, maxD))
           .orderBy(asc(folders.depth), asc(folders.name))
         return rows.map(toFolder)
       } else {

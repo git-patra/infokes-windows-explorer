@@ -25,6 +25,15 @@ describe('GET /api/v1/folders/tree', () => {
   })
 })
 
+describe('GET /api/v1/folders/:id', () => {
+  it('returns 404 for non-existent folder', async () => {
+    const res = await app.handle(new Request('http://localhost/api/v1/folders/99999999'))
+    expect(res.status).toBe(404)
+    const body = await res.json() as any
+    expect(body.error.code).toBe('FOLDER_NOT_FOUND')
+  })
+})
+
 describe('GET /api/v1/folders/:id/children', () => {
   it('returns 404 for non-existent folder', async () => {
     const res = await app.handle(new Request('http://localhost/api/v1/folders/99999999/children'))
