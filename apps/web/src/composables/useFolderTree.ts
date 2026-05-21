@@ -1,4 +1,4 @@
-import { shallowRef, readonly, watch } from 'vue'
+import { shallowRef, watch } from 'vue'
 import { useQuery } from '@tanstack/vue-query'
 import { api } from '../api/client'
 import type { FolderNode } from '@windows-explorer/contracts'
@@ -47,5 +47,5 @@ export function useFolderTree() {
     toggle(id)
   }
 
-  return { tree: readonly(tree), isLoading, error, expandNode }
+  return { tree, isLoading, error, expandNode }
 }

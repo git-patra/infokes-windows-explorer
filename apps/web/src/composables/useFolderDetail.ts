@@ -1,0 +1,18 @@
+import { computed } from 'vue'
+import { useQuery } from '@tanstack/vue-query'
+import { api } from '../api/client'
+
+export function useFolderDetail(folderId: () => number | null) {
+  const enabled = computed(() => folderId() !== null)
+
+  const { data, isLoading, error } = useQuery({
+    queryKey: computed(() => ['folder-detail', folderId()]),
+    queryFn: () => api.getFolderById(folderId()!),
+    enabled,
+    staleTime: 60_000,
+  })
+
+  const breadcrumb = computed(() => data.value?.breadcrumb ?? [])
+
+  return { breadcrumb, isLoading, error }
+}
