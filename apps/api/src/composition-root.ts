@@ -28,6 +28,9 @@ export function createApp() {
     .use(cors({ origin: true }))
     .use(swagger({
       path: '/api/v1/swagger',
+      scalarConfig: {
+        spec: { url: '/api/v1/swagger/json' },
+      },
       documentation: {
         info: { title: 'Windows Explorer API', version: '1.0.0' },
       },
