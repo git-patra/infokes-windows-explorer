@@ -6,6 +6,7 @@ COPY package.json bun.lock ./
 COPY packages/contracts/package.json packages/contracts/
 COPY packages/tsconfig/package.json packages/tsconfig/
 COPY apps/api/package.json apps/api/
+COPY apps/web/package.json apps/web/
 
 RUN bun install --frozen-lockfile
 
