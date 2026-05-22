@@ -11,9 +11,9 @@ install: ## Install all dependencies
 
 up: ## Start Postgres via Docker (dev mode — API and Web run locally)
 	docker-compose up -d postgres
-	@echo "Waiting for Postgres to be ready..."
-	@n=0; until docker-compose exec postgres pg_isready -U explorer -d explorer 2>/dev/null; do \
-	  n=$$((n+1)); [ $$n -ge 30 ] && { echo "Postgres failed to start after 30s"; exit 1; }; sleep 1; done
+	@echo "Waiting for Postgres to be healthy..."
+	@n=0; until [ "$$(docker inspect --format='{{.State.Health.Status}}' windows-explorer-db 2>/dev/null)" = "healthy" ]; do \
+	  n=$$((n+1)); [ $$n -ge 40 ] && { echo "Postgres failed to become healthy after 40s"; exit 1; }; sleep 1; done
 	@echo "Postgres is ready"
 
 down: ## Stop Docker services

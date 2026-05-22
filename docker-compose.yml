@@ -13,10 +13,11 @@ services:
       - postgres_data:/var/lib/postgresql/data
       - ./docker/postgres/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U explorer -d explorer"]
-      interval: 5s
+      test: ["CMD-SHELL", "psql -U explorer -d explorer -c 'SELECT 1' > /dev/null 2>&1"]
+      interval: 3s
       timeout: 5s
-      retries: 5
+      retries: 15
+      start_period: 10s
 
   api:
     build:
