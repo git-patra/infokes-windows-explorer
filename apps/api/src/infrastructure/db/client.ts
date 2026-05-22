@@ -3,7 +3,7 @@ import postgres from 'postgres'
 import * as schema from './schema'
 
 const connectionString =
-  process.env.DATABASE_URL ?? 'postgres://explorer:explorer@localhost:5432/explorer'
+  process.env.DATABASE_URL ?? 'postgres://explorer:explorer@localhost:5433/explorer'
 
 // For use in application code (pooled)
 const queryClient = postgres(connectionString)

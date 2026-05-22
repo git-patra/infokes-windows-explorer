@@ -1,7 +1,7 @@
 import postgres from 'postgres'
 
 const connectionString =
-  process.env.DATABASE_URL ?? 'postgres://explorer:explorer@localhost:5432/explorer'
+  process.env.DATABASE_URL ?? 'postgres://explorer:explorer@localhost:5433/explorer'
 const sql = postgres(connectionString)
 
 interface FolderRow {

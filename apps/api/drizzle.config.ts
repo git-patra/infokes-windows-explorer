@@ -5,6 +5,6 @@ export default {
   out: './src/infrastructure/db/migrations',
   dialect: 'postgresql',
   dbCredentials: {
-    url: process.env.DATABASE_URL ?? 'postgres://explorer:explorer@localhost:5432/explorer',
+    url: process.env.DATABASE_URL ?? 'postgres://explorer:explorer@localhost:5433/explorer',
   },
 } satisfies Config
