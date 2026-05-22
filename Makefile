@@ -9,15 +9,15 @@ help: ## Show this help
 install: ## Install all dependencies
 	bun install
 
-up: ## Start Docker services (Postgres)
-	docker compose up -d
+up: ## Start Postgres via Docker (dev mode — API and Web run locally)
+	docker-compose up -d postgres
 	@echo "Waiting for Postgres to be ready..."
-	@n=0; until docker compose exec postgres pg_isready -U explorer -d explorer 2>/dev/null; do \
+	@n=0; until docker-compose exec postgres pg_isready -U explorer -d explorer 2>/dev/null; do \
 	  n=$$((n+1)); [ $$n -ge 30 ] && { echo "Postgres failed to start after 30s"; exit 1; }; sleep 1; done
 	@echo "Postgres is ready"
 
 down: ## Stop Docker services
-	docker compose down
+	docker-compose down
 
 db-migrate: up ## Run database migrations
 	bun run --cwd apps/api db:migrate
@@ -57,13 +57,13 @@ typecheck: ## Type-check all packages
 	bun run typecheck
 
 prod: ## Build and start full stack via Docker (production mode, web on :8080)
-	docker compose build
-	docker compose up
+	docker-compose build
+	docker-compose up
 
 prod-migrate: ## Run DB migrations inside the running production API container
-	docker compose exec api bun run db:migrate
+	docker-compose exec api bun run db:migrate
 
 clean: ## Remove build artifacts and dependencies
 	rm -rf node_modules apps/*/node_modules packages/*/node_modules
 	rm -rf apps/*/dist packages/*/dist
-	docker compose down -v
+	docker-compose down -v
