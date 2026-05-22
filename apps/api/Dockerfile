@@ -1,4 +1,4 @@
-FROM oven/bun:1.2-alpine
+FROM oven/bun:1-alpine
 WORKDIR /app
 
 # Copy workspace config first for layer caching
