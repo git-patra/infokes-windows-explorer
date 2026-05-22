@@ -1,5 +1,6 @@
 import { sql } from 'drizzle-orm'
 import {
+  AnyPgColumn,
   bigint,
   bigserial,
   customType,
@@ -23,7 +24,7 @@ export const folders = pgTable(
   {
     id: bigserial('id', { mode: 'bigint' }).primaryKey(),
     parentId: bigint('parent_id', { mode: 'bigint' }).references(
-      (): ReturnType<typeof folders.id.notNull> => folders.id,
+      (): AnyPgColumn => folders.id,
       { onDelete: 'cascade' },
     ),
     name: text('name').notNull(),

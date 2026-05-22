@@ -245,20 +245,21 @@ async function insertFolder(
   depth: number,
   parentPath: string | null,
 ): Promise<FolderRow> {
-  const rows = await sql<{ id: bigint }[]>`
+  // postgres.js template literals require serializable params — convert bigint to string
+  const parentIdParam = parentId === null ? null : String(parentId)
+  const rows = await sql`
     INSERT INTO folders (parent_id, name, path, depth)
     VALUES (
-      ${parentId},
+      ${parentIdParam},
       ${name},
       ${(parentPath ? `${parentPath}.` : '') + '0'}::ltree,
       ${depth}
     )
     RETURNING id
-  `
+  ` as { id: bigint }[]
   const id = rows[0].id
-  // Update path to use actual id
   const pathStr = parentPath ? `${parentPath}.${id}` : String(id)
-  await sql`UPDATE folders SET path = ${pathStr}::ltree WHERE id = ${id}`
+  await sql`UPDATE folders SET path = ${pathStr}::ltree WHERE id = ${String(id)}`
   return { id, path: pathStr, depth }
 }
 
@@ -268,11 +269,12 @@ async function insertFiles(
   prefix: string,
   count: number,
 ): Promise<void> {
+  const folderIdParam = String(folderId)
   const files = pickFiles(rootName, count, prefix)
   for (const f of files) {
     await sql`
       INSERT INTO files (folder_id, name, size_bytes, mime_type)
-      VALUES (${folderId}, ${f.name}, ${f.size}, ${f.mime})
+      VALUES (${folderIdParam}, ${f.name}, ${String(f.size)}, ${f.mime})
     `
   }
 }

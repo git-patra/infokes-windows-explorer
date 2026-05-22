@@ -14,7 +14,7 @@ export function createApp() {
         return { error: { code: error.code, message: error.message } }
       }
       if (error instanceof InvalidQueryError) {
-        set.status = 400
+        set.status = 422
         return { error: { code: error.code, message: error.message } }
       }
       if (code === 'VALIDATION') {
