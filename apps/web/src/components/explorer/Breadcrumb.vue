@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Home } from 'lucide-vue-next'
 
-const props = defineProps<{
+defineProps<{
   items: { id: number; name: string }[]
 }>()
 

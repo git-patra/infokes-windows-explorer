@@ -1,4 +1,4 @@
-import { and, asc, gt, inArray, isNull, lt, lte, sql } from 'drizzle-orm'
+import { and, asc, gt, inArray, isNull, lte, sql } from 'drizzle-orm'
 import { db } from '../db/client'
 import { folders } from '../db/schema'
 import type { FolderRepository, FolderTreeOptions, FolderChildrenOptions } from '../../domain/folder/folder-repository'

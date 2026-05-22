@@ -1,4 +1,4 @@
-import { describe, expect, it, beforeEach } from 'bun:test'
+import { describe, expect, it } from 'bun:test'
 import { getFolderTree } from '../../src/application/get-folder-tree'
 import { FakeFolderRepository } from './fakes/fake-folder-repository'
 import type { Folder } from '../../src/domain/folder/folder'

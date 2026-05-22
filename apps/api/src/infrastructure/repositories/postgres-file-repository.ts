@@ -1,4 +1,4 @@
-import { asc, gt, sql } from 'drizzle-orm'
+import { asc, sql } from 'drizzle-orm'
 import { db } from '../db/client'
 import { files } from '../db/schema'
 import type { FileRepository, FileChildrenOptions } from '../../domain/file/file-repository'

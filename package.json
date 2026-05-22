@@ -2,6 +2,7 @@
   "name": "windows-explorer",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "workspaces": ["apps/*", "packages/*"],
   "scripts": {
     "dev": "concurrently \"bun run dev:api\" \"bun run dev:web\"",
@@ -15,13 +16,17 @@
     "typecheck": "bun run --cwd apps/api typecheck && bun run --cwd apps/web typecheck"
   },
   "devDependencies": {
-    "concurrently": "^9.0.0",
-    "eslint": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^8.0.0",
     "@typescript-eslint/parser": "^8.0.0",
+    "concurrently": "^9.0.0",
+    "eslint": "^9.0.0",
+    "eslint-plugin-vue": "^9.0.0",
+    "globals": "^17.6.0",
     "prettier": "^3.0.0",
     "typescript": "^5.5.0",
-    "eslint-plugin-vue": "^9.0.0",
     "vue-eslint-parser": "^9.0.0"
+  },
+  "dependencies": {
+    "@eslint/js": "^10.0.1"
   }
 }

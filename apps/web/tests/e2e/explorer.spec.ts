@@ -34,9 +34,6 @@ test.describe('Windows Explorer golden path', () => {
     await page.waitForTimeout(700)
 
     // Either results or "no results" message should appear
-    const dropdown = page.locator('.search-results, [data-testid="search-dropdown"]')
-      .or(page.locator('text=No results').or(page.locator('.folder-row').nth(1)))
-
     // The input should at minimum still be focused and contain the text
     await expect(searchInput).toHaveValue('doc')
   })
