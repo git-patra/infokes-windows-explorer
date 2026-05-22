@@ -4,6 +4,19 @@ node_modules/
 # Build
 dist/
 .output/
+*.tsbuildinfo
+
+# vue-tsc emit artifacts (generated alongside .vue files during build)
+apps/web/src/**/*.js
+apps/web/src/**/*.js.map
+apps/web/src/**/*.d.ts
+apps/web/src/**/*.d.ts.map
+apps/web/tests/**/*.js
+apps/web/tests/**/*.js.map
+apps/web/tests/**/*.d.ts
+apps/web/tests/**/*.d.ts.map
+apps/web/vite.config.js
+apps/web/vite.config.d.ts
 
 # Environment
 .env
